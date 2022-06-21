@@ -1,7 +1,7 @@
 # Exploring CUDA Bank Conflict [![Windows](https://github.com/Ahdhn/BankConflict/actions/workflows/Windows.yml/badge.svg)](https://github.com/Ahdhn/BankConflict/actions/workflows/Windows.yml) [![Ubuntu](https://github.com/Ahdhn/BankConflict/actions/workflows/Ubuntu.yml/badge.svg)](https://github.com/Ahdhn/BankConflict/actions/workflows/Ubuntu.yml)
 
 # Experiments 
-In all experiments, we used `num_repeat=1` i.e., there is only one read from shared memory that may suffer from bank conflicts. All other writes to shared memory are bank-conflict free. All writes to global memory are coalesced.  
+In all experiments, we used `num_repeat=1` i.e., there is only one read from shared memory that may suffer from bank conflicts. All other writes to shared memory are bank-conflict free. All writes to global memory are coalesced. The `offset` parameter defines the number of bank conflicts (plus one) i.e., `offset= 1` is bank conflict free. 
 
 ## RTX A6000
 Size = 2^20 of `uint32_t`
