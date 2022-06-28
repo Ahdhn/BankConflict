@@ -78,6 +78,42 @@ offset= 31 , time(ms)= 6.16326
 offset= 32 , time(ms)= 6.34682
 ```
 
+## Tesla K40c
+Size = 2^20 of `uint32_t`
+```
+offset= 1 , time(ms)= 2.68243
+offset= 2 , time(ms)= 3.84835
+offset= 3 , time(ms)= 5.21658
+offset= 4 , time(ms)= 6.6409
+offset= 5 , time(ms)= 8.10624
+offset= 6 , time(ms)= 9.6544
+offset= 7 , time(ms)= 12.6544
+offset= 8 , time(ms)= 14.0216
+offset= 9 , time(ms)= 16.6531
+offset= 10 , time(ms)= 21.1796
+offset= 11 , time(ms)= 23.2438
+offset= 12 , time(ms)= 25.029
+offset= 13 , time(ms)= 32.3942
+offset= 14 , time(ms)= 34.6331
+offset= 15 , time(ms)= 36.9204
+offset= 16 , time(ms)= 39.223
+offset= 17 , time(ms)= 57.5444
+offset= 18 , time(ms)= 60.7654
+offset= 19 , time(ms)= 64.0461
+offset= 20 , time(ms)= 67.0132
+offset= 21 , time(ms)= 70.1406
+offset= 22 , time(ms)= 73.4232
+offset= 23 , time(ms)= 76.6645
+offset= 24 , time(ms)= 79.6136
+offset= 25 , time(ms)= 170.173
+offset= 26 , time(ms)= 176.675
+offset= 27 , time(ms)= 183.17
+offset= 28 , time(ms)= 189.759
+offset= 29 , time(ms)= 196.278
+offset= 30 , time(ms)= 202.79
+offset= 31 , time(ms)= 209.258
+offset= 32 , time(ms)= 215.884
+```
 
 ## Build 
 
