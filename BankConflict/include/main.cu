@@ -8,10 +8,11 @@
 
 #include "gtest/gtest.h"
 
+#include "Block3D.cuh"
 #include "helper.h"
 
 constexpr uint32_t max_offset = 32;
-constexpr uint32_t num_run    = 100;
+
 
 template <typename T>
 __global__ void kernel_1d(size_t shmem_size,
@@ -23,7 +24,7 @@ __global__ void kernel_1d(size_t shmem_size,
 
     extern __shared__ T s_mem[];
 
-    for (int i = threadIdx.x; i < shmem_size; i++) {
+    for (int i = threadIdx.x; i < shmem_size; i += blockDim.x) {
         s_mem[i] = 0;
     }
     __syncthreads();
@@ -41,7 +42,7 @@ __global__ void kernel_1d(size_t shmem_size,
 }
 
 
-void run_test_1d(size_t size, int offset, int num_repeat)
+void run_test_1d(size_t size, int offset, int num_repeat, int num_run)
 {
     using T = uint32_t;
 
@@ -71,14 +72,15 @@ void run_test_1d(size_t size, int offset, int num_repeat)
 
 TEST(Test, run_1d)
 {
-    size_t size = 1024 * 1024;
-
-    int num_repeat = 1;
+    const size_t size       = 1024 * 1024 * 1024;
+    const int    num_run    = 100;
+    const int    num_repeat = 1;
     std::cout << "\n**** size= " << size << ", num_run = " << num_run;
 
     for (int offset = 1; offset <= max_offset; ++offset) {
-        run_test(size, offset, num_repeat);
+        run_test_1d(size, offset, num_repeat, num_run);
     }
+    printf("\n");
 }
 
 

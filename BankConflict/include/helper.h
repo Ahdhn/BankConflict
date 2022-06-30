@@ -1,5 +1,8 @@
+#pragma once
+
 #include <stdio.h>
 #include <stdlib.h>
+
 //********************** CUDA HandelError
 #ifndef _CUDA_ERROR_
 #define _CUDA_ERROR_
