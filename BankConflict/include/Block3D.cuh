@@ -17,9 +17,7 @@ __global__ void kernel_3d(T* d_output, int num_repeat)
                         threadIdx.y * xSize +
                         threadIdx.z * xSize * ySize;
    
-    const int block_id = blockIdx.x + 
-                         blockIdx.y * blockDim.x +
-                         blockIdx.z * blockDim.x * blockDim.y;
+    const int block_id = blockIdx.x * blockDim.x * blockDim.y * blockDim.z;
 
      int write_id = (threadIdx.x + radius) +
                     (threadIdx.y + radius) * xSize +
@@ -64,7 +62,7 @@ void run_test_3d(size_t size_1d, int num_repeat, int num_run)
         CUDATimer timer;
         timer.start();
         kernel_3d<xSize, ySize, zSize, radius>
-            <<<dim3(size_1d / xSize, size_1d / ySize, size_1d / zSize),
+            <<<(size_1d * size_1d * size_1d) / (xSize * ySize * zSize),
                dim3(xSize, ySize, zSize)>>>(d_input.data().get(), num_repeat);
         timer.stop();
         auto err = cudaDeviceSynchronize();
@@ -84,7 +82,7 @@ TEST(Test, run_3d)
     const int    num_run    = 100;
     const int    num_repeat = 1;
     run_test_3d<0>(size, num_repeat, num_run);
-    //run_test_3d<1>(size, num_repeat, num_run);
-    //run_test_3d<2>(size, num_repeat, num_run);
+    // run_test_3d<1>(size, num_repeat, num_run);
+    // run_test_3d<2>(size, num_repeat, num_run);
     printf("\n");
 }
