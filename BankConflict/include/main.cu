@@ -1,6 +1,7 @@
 // credits
 // https://github.com/Kobzol/hardware-effects-gpu/tree/master/bank-conflicts
 #include <assert.h>
+#include <cuda_profiler_api.h>
 #include <cuda_runtime.h>
 #include <stdio.h>
 #include <thrust/device_vector.h>
@@ -27,7 +28,7 @@ __global__ void exec_kernel(size_t shmem_size,
     __syncthreads();
 
 
-    int id = threadIdx.x * offset;
+    int id = (threadIdx.x * offset) % shmem_size;
     for (int i = 0; i < num_repeat; i++) {
         s_mem[id] += id * i;
         id += 32;
@@ -52,6 +53,7 @@ void run_test(size_t size, int offset, int num_repeat)
 
     size_t shmem_size = block_size * max_offset;
 
+    CUDA_ERROR(cudaProfilerStart());
     float sum_time = 0;
     for (int d = 0; d < num_run; ++d) {
         CUDATimer timer;
@@ -63,7 +65,7 @@ void run_test(size_t size, int offset, int num_repeat)
         EXPECT_EQ(err, cudaSuccess);
         sum_time += timer.elapsed_millis();
     }
-
+    CUDA_ERROR(cudaProfilerStop());
     std::cout << "\n offset= " << offset
               << ", time(ms)= " << sum_time / float(num_run);
 }
