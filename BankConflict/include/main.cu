@@ -9,6 +9,7 @@
 
 #include "helper.h"
 constexpr uint32_t max_offset = 32;
+constexpr uint32_t num_run    = 100;
 
 template <typename T>
 __global__ void exec_kernel(size_t shmem_size,
@@ -51,15 +52,20 @@ void run_test(size_t size, int offset, int num_repeat)
 
     size_t shmem_size = block_size * max_offset;
 
-    CUDATimer timer;
-    timer.start();
-    exec_kernel<<<num_blocks, block_size, shmem_size * sizeof(T)>>>(
-        shmem_size, num_repeat, d_input.data().get(), offset);
-    timer.stop();
-    std::cout << "\n size= " << size << " , offset= " << offset
-              << " , time(ms)= " << timer.elapsed_millis();
-    auto err = cudaDeviceSynchronize();
-    EXPECT_EQ(err, cudaSuccess);
+    float sum_time = 0;
+    for (int d = 0; d < num_run; ++d) {
+        CUDATimer timer;
+        timer.start();
+        exec_kernel<<<num_blocks, block_size, shmem_size * sizeof(T)>>>(
+            shmem_size, num_repeat, d_input.data().get(), offset);
+        timer.stop();
+        auto err = cudaDeviceSynchronize();
+        EXPECT_EQ(err, cudaSuccess);
+        sum_time += timer.elapsed_millis();
+    }
+
+    std::cout << "\n offset= " << offset
+              << ", time(ms)= " << sum_time / float(num_run);
 }
 
 TEST(Test, exe)
@@ -67,6 +73,7 @@ TEST(Test, exe)
     size_t size = 1024 * 1024;
 
     int num_repeat = 1;
+    std::cout << "\n**** size= " << size << ", num_run = " << num_run;
 
     for (int offset = 1; offset <= max_offset; ++offset) {
         run_test(size, offset, num_repeat);
