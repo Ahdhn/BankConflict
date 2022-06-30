@@ -4,115 +4,47 @@
 In all experiments, we used `num_repeat=1` i.e., there is only one read from shared memory that may suffer from bank conflicts. All other writes to shared memory are bank-conflict free. All writes to global memory are coalesced. The `offset` parameter defines the number of bank conflicts (plus one) i.e., `offset= 1` is bank conflict free. 
 
 ## RTX A6000
-Size = 2^20 of `uint32_t`
+Size = 2^20 of `uint32_t`. Average over 100 runs 
 
 ``` 
-offset= 1 , time(ms)= 0.211904
-offset= 2 , time(ms)= 0.324608
-offset= 3 , time(ms)= 0.439296
-offset= 4 , time(ms)= 0.555008
-offset= 5 , time(ms)= 0.67072
-offset= 6 , time(ms)= 0.784384
-offset= 7 , time(ms)= 0.900096
-offset= 8 , time(ms)= 1.01376
-offset= 9 , time(ms)= 1.1305
-offset= 10 , time(ms)= 1.24518
-offset= 11 , time(ms)= 1.77459
-offset= 12 , time(ms)= 1.49402
-offset= 13 , time(ms)= 1.59846
-offset= 14 , time(ms)= 1.71517
-offset= 15 , time(ms)= 3.48576
-offset= 16 , time(ms)= 1.96403
-offset= 17 , time(ms)= 2.08691
-offset= 18 , time(ms)= 2.2057
-offset= 19 , time(ms)= 3.08019
-offset= 20 , time(ms)= 3.20307
-offset= 21 , time(ms)= 2.57434
-offset= 22 , time(ms)= 2.68902
-offset= 23 , time(ms)= 4.39501
-offset= 24 , time(ms)= 2.90816
-offset= 25 , time(ms)= 3.08736
-offset= 26 , time(ms)= 4.5312
-offset= 27 , time(ms)= 5.06067
-offset= 28 , time(ms)= 3.41709
-offset= 29 , time(ms)= 6.04381
-offset= 30 , time(ms)= 3.65875
-offset= 31 , time(ms)= 3.76845
-offset= 32 , time(ms)= 5.67706
+ offset= 1, time(ms)= 4.30209
+ offset= 2, time(ms)= 4.34682
+ offset= 3, time(ms)= 4.3636
+ offset= 4, time(ms)= 4.33606
+ offset= 5, time(ms)= 4.36726
+ offset= 6, time(ms)= 4.36421
+ offset= 7, time(ms)= 4.36835
+ offset= 8, time(ms)= 4.41139
+ offset= 9, time(ms)= 4.38105
+ offset= 10, time(ms)= 4.37528
+ offset= 11, time(ms)= 4.37208
+ offset= 12, time(ms)= 4.37521
+ offset= 13, time(ms)= 4.37823
+ offset= 14, time(ms)= 4.33889
+ offset= 15, time(ms)= 4.35368
+ offset= 16, time(ms)= 4.36441
+ offset= 17, time(ms)= 4.34809
+ offset= 18, time(ms)= 4.38047
+ offset= 19, time(ms)= 4.3697
+ offset= 20, time(ms)= 4.35399
+ offset= 21, time(ms)= 4.39009
+ offset= 22, time(ms)= 4.48932
+ offset= 23, time(ms)= 4.61049
+ offset= 24, time(ms)= 4.56469
+ offset= 25, time(ms)= 4.48154
+ offset= 26, time(ms)= 4.65752
+ offset= 27, time(ms)= 4.57338
+ offset= 28, time(ms)= 4.38176
+ offset= 29, time(ms)= 4.35502
+ offset= 30, time(ms)= 4.38195
+ offset= 31, time(ms)= 4.4514
+ offset= 32, time(ms)= 4.41471
 ``` 
 
 ## Quadro GV100
-Size = 2^20 of `uint32_t`
-```
-offset= 1 , time(ms)= 0.862336
-offset= 2 , time(ms)= 0.896128
-offset= 3 , time(ms)= 0.972832
-offset= 4 , time(ms)= 1.09117
-offset= 5 , time(ms)= 1.24666
-offset= 6 , time(ms)= 1.40691
-offset= 7 , time(ms)= 1.54125
-offset= 8 , time(ms)= 1.71981
-offset= 9 , time(ms)= 1.91075
-offset= 10 , time(ms)= 2.07248
-offset= 11 , time(ms)= 2.28746
-offset= 12 , time(ms)= 2.45683
-offset= 13 , time(ms)= 2.67293
-offset= 14 , time(ms)= 2.87142
-offset= 15 , time(ms)= 3.13786
-offset= 16 , time(ms)= 3.26598
-offset= 17 , time(ms)= 3.39021
-offset= 18 , time(ms)= 3.56384
-offset= 19 , time(ms)= 3.6984
-offset= 20 , time(ms)= 3.90771
-offset= 21 , time(ms)= 4.07485
-offset= 22 , time(ms)= 4.27043
-offset= 23 , time(ms)= 4.42349
-offset= 24 , time(ms)= 4.63091
-offset= 25 , time(ms)= 4.92314
-offset= 26 , time(ms)= 5.19203
-offset= 27 , time(ms)= 5.42634
-offset= 28 , time(ms)= 5.49341
-offset= 29 , time(ms)= 5.79174
-offset= 30 , time(ms)= 5.99962
-offset= 31 , time(ms)= 6.16326
-offset= 32 , time(ms)= 6.34682
+Size = 2^20 of `uint32_t`. Average over 100 runs 
 ```
 
-## Tesla K40c
-Size = 2^20 of `uint32_t`
-```
-offset= 1 , time(ms)= 2.68243
-offset= 2 , time(ms)= 3.84835
-offset= 3 , time(ms)= 5.21658
-offset= 4 , time(ms)= 6.6409
-offset= 5 , time(ms)= 8.10624
-offset= 6 , time(ms)= 9.6544
-offset= 7 , time(ms)= 12.6544
-offset= 8 , time(ms)= 14.0216
-offset= 9 , time(ms)= 16.6531
-offset= 10 , time(ms)= 21.1796
-offset= 11 , time(ms)= 23.2438
-offset= 12 , time(ms)= 25.029
-offset= 13 , time(ms)= 32.3942
-offset= 14 , time(ms)= 34.6331
-offset= 15 , time(ms)= 36.9204
-offset= 16 , time(ms)= 39.223
-offset= 17 , time(ms)= 57.5444
-offset= 18 , time(ms)= 60.7654
-offset= 19 , time(ms)= 64.0461
-offset= 20 , time(ms)= 67.0132
-offset= 21 , time(ms)= 70.1406
-offset= 22 , time(ms)= 73.4232
-offset= 23 , time(ms)= 76.6645
-offset= 24 , time(ms)= 79.6136
-offset= 25 , time(ms)= 170.173
-offset= 26 , time(ms)= 176.675
-offset= 27 , time(ms)= 183.17
-offset= 28 , time(ms)= 189.759
-offset= 29 , time(ms)= 196.278
-offset= 30 , time(ms)= 202.79
-offset= 31 , time(ms)= 209.258
-offset= 32 , time(ms)= 215.884
 ```
 
 ## Build 
