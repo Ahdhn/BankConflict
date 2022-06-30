@@ -1,4 +1,5 @@
-//credits https://github.com/Kobzol/hardware-effects-gpu/tree/master/bank-conflicts
+// credits
+// https://github.com/Kobzol/hardware-effects-gpu/tree/master/bank-conflicts
 #include <assert.h>
 #include <cuda_runtime.h>
 #include <stdio.h>
@@ -7,6 +8,7 @@
 #include "gtest/gtest.h"
 
 #include "helper.h"
+constexpr uint32_t max_offset = 32;
 
 template <typename T>
 __global__ void exec_kernel(size_t shmem_size,
@@ -23,7 +25,7 @@ __global__ void exec_kernel(size_t shmem_size,
     }
     __syncthreads();
 
- 
+
     int id = threadIdx.x * offset;
     for (int i = 0; i < num_repeat; i++) {
         s_mem[id] += id * i;
@@ -47,7 +49,7 @@ void run_test(size_t size, int offset, int num_repeat)
     const int block_size = 256;
     const int num_blocks = DIVIDE_UP(size, block_size);
 
-    size_t shmem_size = block_size * offset;
+    size_t shmem_size = block_size * max_offset;
 
     CUDATimer timer;
     timer.start();
@@ -66,7 +68,7 @@ TEST(Test, exe)
 
     int num_repeat = 1;
 
-    for (int offset = 1; offset <= 32; ++offset) {
+    for (int offset = 1; offset <= max_offset; ++offset) {
         run_test(size, offset, num_repeat);
     }
 }
