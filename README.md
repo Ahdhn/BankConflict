@@ -44,7 +44,38 @@ Size = 2^20 of `uint32_t`. Average over 100 runs
 ## Quadro GV100
 Size = 2^20 of `uint32_t`. Average over 100 runs 
 ```
-
+ offset= 1, time(ms)= 5.46449
+ offset= 2, time(ms)= 5.46254
+ offset= 3, time(ms)= 5.45825
+ offset= 4, time(ms)= 5.46375
+ offset= 5, time(ms)= 5.46334
+ offset= 6, time(ms)= 5.46545
+ offset= 7, time(ms)= 5.462
+ offset= 8, time(ms)= 5.46419
+ offset= 9, time(ms)= 5.46712
+ offset= 10, time(ms)= 5.46389
+ offset= 11, time(ms)= 5.46584
+ offset= 12, time(ms)= 5.46124
+ offset= 13, time(ms)= 5.46077
+ offset= 14, time(ms)= 5.46143
+ offset= 15, time(ms)= 5.46422
+ offset= 16, time(ms)= 5.46826
+ offset= 17, time(ms)= 5.46477
+ offset= 18, time(ms)= 5.46525
+ offset= 19, time(ms)= 5.463
+ offset= 20, time(ms)= 5.45978
+ offset= 21, time(ms)= 5.4587
+ offset= 22, time(ms)= 5.46318
+ offset= 23, time(ms)= 5.46549
+ offset= 24, time(ms)= 5.46769
+ offset= 25, time(ms)= 5.46521
+ offset= 26, time(ms)= 5.46732
+ offset= 27, time(ms)= 5.4607
+ offset= 28, time(ms)= 5.459
+ offset= 29, time(ms)= 5.46325
+ offset= 30, time(ms)= 5.46344
+ offset= 31, time(ms)= 5.46321
+ offset= 32, time(ms)= 5.46987
 ```
 
 ## Build 
