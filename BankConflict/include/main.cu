@@ -9,14 +9,15 @@
 #include "gtest/gtest.h"
 
 #include "helper.h"
+
 constexpr uint32_t max_offset = 32;
 constexpr uint32_t num_run    = 100;
 
 template <typename T>
-__global__ void exec_kernel(size_t shmem_size,
-                            int    num_repeat,
-                            T*     d_output,
-                            int    offset)
+__global__ void kernel_1d(size_t shmem_size,
+                          int    num_repeat,
+                          T*     d_output,
+                          int    offset)
 {
     assert(shmem_size == offset * blockDim.x);
 
@@ -36,13 +37,11 @@ __global__ void exec_kernel(size_t shmem_size,
     }
     __syncthreads();
 
-    for (int i = threadIdx.x; i < blockDim.x; i++) {
-        d_output[blockIdx.x * blockDim.x + i] = s_mem[i];
-    }
+    d_output[blockIdx.x * blockDim.x + threadIdx.x] = s_mem[threadIdx.x];
 }
 
 
-void run_test(size_t size, int offset, int num_repeat)
+void run_test_1d(size_t size, int offset, int num_repeat)
 {
     using T = uint32_t;
 
@@ -58,7 +57,7 @@ void run_test(size_t size, int offset, int num_repeat)
     for (int d = 0; d < num_run; ++d) {
         CUDATimer timer;
         timer.start();
-        exec_kernel<<<num_blocks, block_size, shmem_size * sizeof(T)>>>(
+        kernel_1d<<<num_blocks, block_size, shmem_size * sizeof(T)>>>(
             shmem_size, num_repeat, d_input.data().get(), offset);
         timer.stop();
         auto err = cudaDeviceSynchronize();
@@ -70,7 +69,7 @@ void run_test(size_t size, int offset, int num_repeat)
               << ", time(ms)= " << sum_time / float(num_run);
 }
 
-TEST(Test, exe)
+TEST(Test, run_1d)
 {
     size_t size = 1024 * 1024;
 
